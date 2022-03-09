@@ -126,7 +126,7 @@ class HexagonalGrid:
         return (max_x - min_x, max_y - min_y)
 
     
-    def get_primary_monitor_coordinates(self, location, min_x, min_y):
+    def get_primary_monitor_coordinates(self, location, min_x, max_y):
         """
         private
         converts regular cartesian coordinates (negatives and positives) to the cartesian pixel coordinate system 
@@ -141,8 +141,8 @@ class HexagonalGrid:
         
         #need to chaange the x and the y change
         old_x, old_y = location.get_2d_coordinates(self.scale)
-        return  (old_x - min_x, abs(old_y + min_y))
-    
+        #return (old_x - min_x, abs(old_y - min_y))
+        return (old_x - min_x, abs(old_y - max_y))
     
     def get_range(self):
         """
@@ -200,7 +200,7 @@ class HexagonalGrid:
         min_xy, max_xy = self.get_range()
         image = Image.new("RGBA", self.get_size(*min_xy, *max_xy))
         for element in self.elements:
-            x, y = self.get_primary_monitor_coordinates(element.location, *min_xy)
+            x, y = self.get_primary_monitor_coordinates(element.location, min_xy[0], max_xy[1])
             element.draw(image, x, y, self.scale)
         return image
     

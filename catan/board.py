@@ -1,10 +1,3 @@
-"""
-Low level hexagon stuff. 
-Game specific stuff will be in a tile.py 
-which will have the different types, etc...
-"""
-
-
 import math
 
 from PIL import ImageDraw
@@ -60,7 +53,7 @@ class Settlement(Hexagonable):
     
     def get_size(self, scale):
         radius = math.ceil(scale / 10)
-        return (radius, radius)
+        return (radius * 2, radius * 2)
     
     
     def draw(self, image, center_x, center_y, scale):
@@ -93,6 +86,6 @@ grid.add_hexagonable(Tile(HexagonalCoordinates(0, 1, -1), brick))
 grid.add_hexagonable(Tile(HexagonalCoordinates(-1, 1, 0), ore))
 grid.add_hexagonable(Tile(HexagonalCoordinates(-1, 0, 1), ore))
 
-grid.add_hexagonable(Settlement(CornerCoordinates(0, 0, 0, "t"), red))
+grid.add_hexagonable(Settlement(CornerCoordinates(-1, 1, -1, "t"), red))
 grid.render().show()
 
